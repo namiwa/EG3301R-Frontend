@@ -46,10 +46,6 @@ export const Uploader = (props) => {
     )
   }
 
-  const results = () => {
-
-  }
-
   return (
     <div className={classes.root}>
       <Container className={classes.appContainer}>
