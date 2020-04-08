@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import ImageUploader from "react-images-upload";
 import runModel from '../Models/Models';
 
+
+
 const useStyles = makeStyles(() => ({
   root: {
     marginTop: 100
@@ -36,12 +38,16 @@ export const Uploader = (props) => {
   })
 
   const Preview = () => {
-    
+
     return (
       (pictures === null || pictures === []) 
         ? (<div></div>) :
         (<img src={pictures} alt={'thisistest'}/>) 
     )
+  }
+
+  const results = () => {
+
   }
 
   return (
