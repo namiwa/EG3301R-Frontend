@@ -44,7 +44,6 @@ const getJsonFile = (jsonObject = {}) => {
 
 export const reformImageTensor = (threeInputTensor) => {
   const resized = tf.cast(threeInputTensor, 'float32').div(255);
-  console.log(resized.dataSync())
   const t4d = tf.tensor4d(Array.from(resized.dataSync()),[1,64,64,3]);
   return t4d;
 }
