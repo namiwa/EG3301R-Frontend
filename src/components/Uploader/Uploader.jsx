@@ -6,11 +6,11 @@ import ImageUploader from "react-images-upload";
 import runModel from '../Models/Models';
 import resNetModel from '../Models/Models_rsnet';
 
-/*
-add the classifiers CATEGORIES = ["AnnualCrop", "Forest", "HerbaceousVegetation", "Highway", 
+
+const CATEGORIES = ["AnnualCrop", "Forest", "HerbaceousVegetation", "Highway", 
               "Industrial", "Pasture", "PermanentCrop", "Residential", 
               "River", "SeaLake"]
-*/
+
 
 // Add other routes for potential predictive features, about the project, anything interesting
 
@@ -35,7 +35,7 @@ export const Uploader = (props) => {
     pic.crossOrigin = '';
     setPictures([src])
     runModel(pic).then(model => model);
-    resNetModel(src).then(model => console.log(model));
+    resNetModel(src).then(output => console.log(CATEGORIES[output]));
     console.log(pic)
   };
 
@@ -48,7 +48,7 @@ export const Uploader = (props) => {
   const Preview = () => {
 
     return (
-      (pictures === null || pictures.length === 0) 
+      (pictures === null || pictures === [] || pictures.length === 0) 
         ? (<div></div>) :
         (<img src={pictures[pictures.length - 1]} alt={'thisistest'}/>) 
     )

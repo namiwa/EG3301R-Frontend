@@ -1,4 +1,4 @@
-import {getTFModel, reformImageTensor, getImageFile } from './ModelUtils';
+import {getTFModel, reformImageTensor, getImageFile, indexOfMax } from './ModelUtils';
 import * as tf from '@tensorflow/tfjs';
 
 // import all .bin and json
@@ -75,7 +75,9 @@ export const rsNetModel = async (imagePath) => {
   const model = await getTFModel(rawBinList, JsonModel, names);
   const input = reformImageTensor(threeInput)
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  return model.predict(input).dataSync();
+  const output = await model.predict(input).data();
+  console.log(output)
+  return indexOfMax(output);
 }
 
 export default rsNetModel;
