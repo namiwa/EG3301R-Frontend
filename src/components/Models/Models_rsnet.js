@@ -74,6 +74,7 @@ export const rsNetModel = async (imagePath) => {
   const threeInput = tf.browser.fromPixels(imgData)
   const model = await getTFModel(rawBinList, JsonModel, names);
   const input = reformImageTensor(threeInput)
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   return model.predict(input).dataSync();
 }
 

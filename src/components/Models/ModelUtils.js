@@ -11,7 +11,6 @@ const getBinaryArrayPromise = (binaryPathArray = []) => {
 }
 
 export const getImageFile = async (imageURL) => {
-  console.log(imageURL)
   return await fetch(imageURL, {mode: 'no-cors'})
     .then(res => {
       return res.arrayBuffer();

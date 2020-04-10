@@ -48,9 +48,9 @@ export const Uploader = (props) => {
   const Preview = () => {
 
     return (
-      (pictures === null || pictures === []) 
+      (pictures === null || pictures.length === 0) 
         ? (<div></div>) :
-        (<img src={pictures} alt={'thisistest'}/>) 
+        (<img src={pictures[pictures.length - 1]} alt={'thisistest'}/>) 
     )
   }
 
