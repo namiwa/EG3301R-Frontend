@@ -23,7 +23,7 @@ const binaryWrapper =  () => {
     let j = i + 1
     const name = starter + j + ender;
     names.push(name);
-    return await fetch(val, {mode: 'no-cors'}).then(res => {;
+    return await fetch(val, {mode: 'no-cors'}).then(res => {
       return res.arrayBuffer();
     })
   })
@@ -41,21 +41,18 @@ export const runModel = async (imageFile) => {
   const binaryWeights = await Promise.all([binaryWrapper()])
     .then((res) => {
       const test = Promise.all(...res)
-      console.log(test)
       return test;
     })
-  console.log(binaryWeights)
   const weightsFiles = binaryWeights.map((val, ind) => {
-    const u8intview = new Uint8Array(val);
+    const u8intview = new Uint8Array(val);  
     const blob = new Blob([u8intview])
     const file = new File([blob], names[ind]);
     return file;
   })
-  console.log(weightsFiles)
   return await tf.loadGraphModel(tf.io.browserFiles([file, ...weightsFiles]), {
     strict: false,
   })
-  .then(test => test.execute(t4d))
+  .then(test => test.predict(t4d).dataSync())
   .catch(err => console.log(err))
 }
 
