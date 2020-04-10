@@ -41,8 +41,18 @@ export const Uploader = (props) => {
 
   const handleOnClick = (e => {
     e.preventDefault();
+    setPictures([]);
     console.log(pictures)
   })
+
+  const Preview = () => {
+
+    return (
+      (pictures === null || pictures === []) 
+        ? (<div></div>) :
+        (<img src={pictures} alt={'thisistest'}/>) 
+    )
+  }
 
   return (
     <div className={classes.root}>
@@ -57,6 +67,7 @@ export const Uploader = (props) => {
         imgExtension={[".jpg",".png"]}
         maxFileSize={5242880}
         />
+        <Preview/>
         <canvas id='tutorial'></canvas>
       </Container>
     </div>

@@ -64,7 +64,7 @@ const names = rawBinList.map((val, ind) => {
 })
 
 export const rsNetModel = async (imagePath) => {
-  await getImageFile(imagePath) // Allows image tensor to be loaded
+  await getImageFile(imagePath) // This line enables the model to run
   const img = new Image(64, 64)
   img.src = imagePath;
   let canvas = document.getElementById('tutorial');
