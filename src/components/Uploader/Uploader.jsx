@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles';
 import ImageUploader from "react-images-upload";
 import resNetModel from '../Models/Models_rsnet';
@@ -27,17 +30,29 @@ export const Uploader = (props) => {
 
   const [pictures, setPictures] = useState(null);
 
+  const [detection, setDetection] = useState({
+    outputClass: '',
+  });
+
   const onDrop = picture => {
     const src = window.URL.createObjectURL(picture[picture.length - 1])
     const pic = new Image(64, 64);
     pic.src = src;
     pic.crossOrigin = '';
     setPictures([src])
-    resNetModel(src).then(output => console.log(CATEGORIES[output]));
+    resNetModel(src).then(output => {
+      const ans = CATEGORIES[output];
+      setDetection({
+        outputClass: ans
+      })
+    })
   };
 
   const handleOnClick = (e => {
     e.preventDefault();
+    setDetection({
+      outputClass: ''
+    })
     setPictures([]);
   })
 
@@ -46,14 +61,39 @@ export const Uploader = (props) => {
     return (
       (pictures === null || pictures === [] || pictures.length === 0) 
         ? (<div></div>) :
-        (<img src={pictures[pictures.length - 1]} alt={'thisistest'}/>) 
+        (<img src={pictures[pictures.length - 1]} alt={'thisistest'} width={200} height={200}/>) 
     )
   }
+
+  const Display = () => {
+    return (
+      <Card>
+        <Typography> {(detection.outputClass === '') 
+          ? ('Upload an image to test the model!' )
+          : ('The model thinks the image label is a ' + detection.outputClass)
+          } </Typography>
+        <canvas id='tutorial'></canvas>
+      </Card>
+    )
+  }
+
+  const ReadMore = () => {
+    return ( 
+      <Card>
+        <CardContent>
+          <Typography>Welcome to the Demo site for EG3301R Project group!</Typography>
+          <Typography>This is a demonstration of our interim prototype for land Image Classification for Urban Planners.</Typography>
+          <Typography>The model is loaded on the browser, and uses the Tensorflow.js library to run the image classification.</Typography>
+        </CardContent>
+      </Card>
+    )
+  }
+
 
   return (
     <div className={classes.root}>
       <Container className={classes.appContainer}>
-        Upload any satellite image to see the classifier results!
+        <Typography>Upload any satellite image to see the classifier results!</Typography>
         <br/>
         <br/>
         <Button onClick={handleOnClick} variant="contained" colour="primary">Clear Image!</Button> 
@@ -64,7 +104,8 @@ export const Uploader = (props) => {
         maxFileSize={5242880}
         />
         <Preview/>
-        <canvas id='tutorial'></canvas>
+        <Display/>
+        <ReadMore />
       </Container>
     </div>
   )
