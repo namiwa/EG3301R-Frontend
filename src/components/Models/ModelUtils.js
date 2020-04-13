@@ -20,7 +20,7 @@ export const getImageFile = async (imageURL) => {
     })
 }
 
-
+// Possibly some refactoring needed to fix the repeated Promise.all calls
 const getBinaryWeightFiles = async (binaryPathArray = [], names = []) => {
   const binaryWeights =  await Promise.all([getBinaryArrayPromise(binaryPathArray)])
     .then(res => {

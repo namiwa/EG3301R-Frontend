@@ -40,14 +40,14 @@ const names = rawBinList.map((val, ind) => {
 })
 
 export const rsNetModel = async (imagePath) => {
-  await getImageFile(imagePath) // This line enables the model to run
-  const img = new Image(64, 64)
+  await getImageFile(imagePath); // This line doesn't affect the model, but is needed for processing.
+  const img = new Image(64, 64);
   img.src = imagePath;
   let canvas = document.getElementById('tutorial');
   let ctx = canvas.getContext('2d');
   ctx.drawImage(img, 0, 0);
-  let imgData = ctx.getImageData(0, 0, 64, 64)
-  const threeInput = tf.browser.fromPixels(imgData)
+  let imgData = ctx.getImageData(0, 0, 64, 64);
+  const threeInput = tf.browser.fromPixels(imgData);
   const model = await getTFModel(rawBinList, JsonModel, names);
   const input = reformImageTensor(threeInput)
   ctx.clearRect(0, 0, canvas.width, canvas.height);

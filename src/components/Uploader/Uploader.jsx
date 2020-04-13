@@ -3,7 +3,6 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageUploader from "react-images-upload";
-import runModel from '../Models/Models';
 import resNetModel from '../Models/Models_rsnet';
 
 
@@ -19,7 +18,7 @@ const useStyles = makeStyles(() => ({
     marginTop: 100
   },
   appContainer: {
-    background: '#ffffffff  '
+    background: '#ffffffff'
   }
 }))
 
@@ -34,15 +33,12 @@ export const Uploader = (props) => {
     pic.src = src;
     pic.crossOrigin = '';
     setPictures([src])
-    runModel(pic).then(model => model);
     resNetModel(src).then(output => console.log(CATEGORIES[output]));
-    console.log(pic)
   };
 
   const handleOnClick = (e => {
     e.preventDefault();
     setPictures([]);
-    console.log(pictures)
   })
 
   const Preview = () => {
