@@ -39,7 +39,7 @@ const names = rawBinList.map((val, ind) => {
   return starter + j + ender;
 })
 
-export const rsNetModel = async (imagePath) => {
+export const Model = async (imagePath) => {
   await getImageFile(imagePath); // This line doesn't affect the model, but is needed for processing.
   const img = new Image(64, 64);
   img.src = imagePath;
@@ -56,4 +56,4 @@ export const rsNetModel = async (imagePath) => {
   return indexOfMax(output);
 }
 
-export default rsNetModel;
+export default Model;

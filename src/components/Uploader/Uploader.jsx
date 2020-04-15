@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageUploader from "react-images-upload";
-import resNetModel from '../Models/Models_rsnet';
+import Model from '../Models/Model';
 
 
 const CATEGORIES = ["AnnualCrop", "Forest", "HerbaceousVegetation", "Highway", 
@@ -40,7 +41,7 @@ export const Uploader = (props) => {
     pic.src = src;
     pic.crossOrigin = '';
     setPictures([src])
-    resNetModel(src).then(output => {
+    Model(src).then(output => {
       const ans = CATEGORIES[output];
       setDetection({
         outputClass: ans
@@ -89,13 +90,23 @@ export const Uploader = (props) => {
     )
   }
 
+  const Header = () => {
+    return (
+      <div>
+        <Typography>This webpage containes a converted Tensorflow model, which is able to identify satellite images from Sentinel Satellite.</Typography>
+        <Typography>Upload any satellite image to see the classifier results!</Typography>
+        <Typography>The model was trained on the <Link href="https://github.com/phelber/EuroSAT">Eurosat Dataset.</Link></Typography>
+        <br/>
+        <br/>
+      </div>
+    )
+  }
+
 
   return (
     <div className={classes.root}>
       <Container className={classes.appContainer}>
-        <Typography>Upload any satellite image to see the classifier results!</Typography>
-        <br/>
-        <br/>
+        <Header />
         <Button onClick={handleOnClick} variant="contained" colour="primary">Clear Image!</Button> 
         <ImageUploader
         {...props}
