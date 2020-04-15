@@ -4,6 +4,7 @@ import "typeface-roboto";
 
 import Header from '../view/Header/Header';
 import Uploader from '../components/Uploader/Uploader';
+import FutureWork from '../components/Future/FutureWork';
 
 import './App.css';
 
@@ -13,6 +14,7 @@ function App() {
       <div className="App">
         <Header />
         <Switch>
+          <Route exact path={'/futurework'} component={FutureWork} /> 
           <Route path={'/'} component={Uploader} />
         </Switch>
       </div>

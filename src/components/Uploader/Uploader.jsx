@@ -79,7 +79,8 @@ export const Uploader = (props) => {
   }
 
   const ReadMore = () => {
-    return ( 
+    return (
+      <div>
       <Card>
         <CardContent>
           <Typography>Welcome to the Demo site for EG3301R Project group!</Typography>
@@ -87,17 +88,22 @@ export const Uploader = (props) => {
           <Typography>The model is loaded on the browser, and uses the Tensorflow.js library to run the image classification.</Typography>
         </CardContent>
       </Card>
+      <br/>
+      <br/>
+      </div>
     )
   }
 
   const Header = () => {
     return (
       <div>
-        <Typography>This webpage containes a converted Tensorflow model, which is able to identify satellite images from Sentinel Satellite.</Typography>
-        <Typography>Upload any satellite image to see the classifier results!</Typography>
+        <Typography>
+          The possible image labels are {CATEGORIES.map((val) => {
+            return val + " "
+          })}.
+          </Typography>
         <Typography>The model was trained on the <Link href="https://github.com/phelber/EuroSAT">Eurosat Dataset.</Link></Typography>
-        <br/>
-        <br/>
+        <Typography>Upload any satellite image to see the classifier results!</Typography>
       </div>
     )
   }
@@ -106,7 +112,7 @@ export const Uploader = (props) => {
   return (
     <div className={classes.root}>
       <Container className={classes.appContainer}>
-        <Header />
+        <ReadMore />
         <Button onClick={handleOnClick} variant="contained" colour="primary">Clear Image!</Button> 
         <ImageUploader
         {...props}
@@ -116,7 +122,7 @@ export const Uploader = (props) => {
         />
         <Preview/>
         <Display/>
-        <ReadMore />
+        <Header />        
       </Container>
     </div>
   )
