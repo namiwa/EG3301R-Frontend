@@ -103,7 +103,6 @@ export const Uploader = (props) => {
           })}.
           </Typography>
         <Typography>The model was trained on the <Link href="https://github.com/phelber/EuroSAT">Eurosat Dataset.</Link></Typography>
-        <Typography>Upload any satellite image to see the classifier results!</Typography>
       </div>
     )
   }
