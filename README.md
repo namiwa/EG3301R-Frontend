@@ -1,4 +1,8 @@
+## EG3301R: ASI-304 Front-end Prototype Client
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+This is the source code the the static site we built for the prototype website. The static site is hosted on Heroku, and can be accessed [here](https://downloadedfromspace.herokuapp.com/)
 
 ## Available Scripts
 
