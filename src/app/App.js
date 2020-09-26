@@ -5,7 +5,7 @@ import "typeface-roboto";
 import Header from "../view/Header/Header";
 import Uploader from "../components/Uploader/Uploader";
 import FutureWork from "../components/Future/FutureWork";
-import Maps from "../components/Maps/Maps";
+import Maps from "../components/Maps";
 
 import "./App.css";
 
