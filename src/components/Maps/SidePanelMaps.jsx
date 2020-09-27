@@ -61,7 +61,6 @@ export const SidePanelMaps = React.memo(() => {
         }}
         anchor="left"
       >
-        <div className={classes.toolbar} />
         <List>
           {["Solar", "Wind", "Hydro", "Geothermal"].map((text, index) => (
             <ListItem button key={text} onClick={() => onRenewableClick(text)}>

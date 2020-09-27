@@ -32,8 +32,8 @@ const useStyles = makeStyles({
     width: "100%",
     maxWidth: 400,
     zIndex: 10,
-    marginTop: 75,
-    marginLeft: 610,
+    marginTop: 65,
+    marginLeft: 330,
   },
 });
 
@@ -97,7 +97,6 @@ export function Maps() {
 
   return (
     <div className={classes.root}>
-      <h1 className={classes.mapTitle}> Final Prototype </h1>
       <Search panTo={panTo} className={classes.placesSearch} />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
@@ -156,7 +155,7 @@ const Search = ({ panTo, className }) => {
             setValue(e.target.value);
           }}
           disabled={!ready}
-          placeholder={"Enter an Address"}
+          placeholder={"Enter Location"}
         />
         <ComboboxPopover>
           {status === "OK" &&
