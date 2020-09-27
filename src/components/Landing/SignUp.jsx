@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { Grid, Paper, Typography } from "@material-ui/core";
@@ -44,15 +44,11 @@ export default function Login() {
   const handleSubmit = () => {
     firebase
       .auth()
-      .signInWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(email, password)
       .catch(function (error) {
         console.log(error.message);
       });
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        history.push("/app"); //After successful login, user will be redirected to home.html
-      }
-    });
+    history.push("/");
   };
 
   return (
@@ -68,7 +64,10 @@ export default function Login() {
         >
           <Paper className={classes.paper}>
             <Typography variant="h4" gutterBottom>
-              Login
+              Register
+            </Typography>
+            <Typography variant="p" gutterBottom>
+              Create an account with us
             </Typography>
             <Grid item className={classes.item}>
               <TextField
@@ -100,13 +99,8 @@ export default function Login() {
                 disableElevation
                 onClick={handleSubmit}
               >
-                Confirm
+                Sign Up
               </Button>
-            </Grid>
-            <Grid item className={classes.item}>
-              <Typography color="secondary">
-                <Link to="/signup">Sign Up</Link>
-              </Typography>
             </Grid>
           </Paper>
         </Grid>

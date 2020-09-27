@@ -6,6 +6,7 @@ import Header from "../view/Header/Header";
 import Uploader from "../components/Uploader/Uploader";
 import FutureWork from "../components/Future/FutureWork";
 import Login from "../components/Landing/Login";
+import SignUp from "../components/Landing/SignUp";
 
 import "./App.css";
 
@@ -37,6 +38,7 @@ function MainApp() {
         <Switch>
           <Route exact path={"/futurework"} component={FutureWork} />
           <Route path={"/app"} component={Uploader} />
+          <Route path={"/signup"} component={SignUp} />
           <Route path={"/"} component={Login} />
         </Switch>
       </div>

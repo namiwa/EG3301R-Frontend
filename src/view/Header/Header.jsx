@@ -53,6 +53,7 @@ export const Header = () => {
               </Typography>
             </Grid>
 
+            {/* if user is logged in, hide these */}
             <Grid item>
               <Button>
                 <Link component={RouterLink} to="/futurework">
