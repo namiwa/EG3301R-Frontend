@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    marginTop: 64,
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -47,7 +48,7 @@ export const SidePanelMaps = React.memo(() => {
   const { currentLatLng } = React.useContext(LatLngContext);
   const onRenewableClick = (renewableText) => {
     setRenewable(renewableText);
-    console.log(renewableText);
+    console.log(currentRenewable);
     console.log(currentLatLng);
   };
   return (
