@@ -8,6 +8,8 @@ import FutureWork from "../components/Future/FutureWork";
 import Login from "../components/Landing/Login";
 import SignUp from "../components/Landing/SignUp";
 
+import Maps from "../components/Maps/Maps";
+
 import "./App.css";
 
 function MainApp() {
@@ -39,6 +41,7 @@ function MainApp() {
           <Route exact path={"/futurework"} component={FutureWork} />
           <Route path={"/app"} component={Uploader} />
           <Route path={"/signup"} component={SignUp} />
+          <Route exact path={"/map"} component={Maps} />
           <Route path={"/"} component={Login} />
         </Switch>
       </div>
