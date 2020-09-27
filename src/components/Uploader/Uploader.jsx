@@ -8,6 +8,7 @@ import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageUploader from "react-images-upload";
 import Model from "../Models/Model";
+import { Paper } from "@material-ui/core";
 
 const CATEGORIES = [
   "AnnualCrop",
@@ -28,8 +29,10 @@ const useStyles = makeStyles(() => ({
   root: {
     marginTop: 100,
   },
-  appContainer: {
-    background: "#ffffffff",
+  paper: {
+    background: "#ffffff",
+    opacity: 0.85,
+    padding: 20,
   },
   cardContainer: {
     boxShadow: 0,
@@ -138,20 +141,22 @@ export const Uploader = (props) => {
 
   return (
     <div className={classes.root}>
-      <Container className={classes.appContainer}>
-        <ReadMore />
-        <Button onClick={handleOnClick} variant="contained" colour="primary">
-          Clear Image!
-        </Button>
-        <ImageUploader
-          {...props}
-          onChange={onDrop}
-          imgExtension={[".jpg", ".png"]}
-          maxFileSize={5242880}
-        />
-        <Preview />
-        <Display />
-        <Header />
+      <Container>
+        <Paper className={classes.paper}>
+          <ReadMore />
+          <Button onClick={handleOnClick} variant="contained" colour="primary">
+            Clear Image!
+          </Button>
+          <ImageUploader
+            {...props}
+            onChange={onDrop}
+            imgExtension={[".jpg", ".png"]}
+            maxFileSize={5242880}
+          />
+          <Preview />
+          <Display />
+          <Header />
+        </Paper>
       </Container>
     </div>
   );
