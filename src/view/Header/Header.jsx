@@ -4,22 +4,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  menueButton: {
+  menuButton: {
     marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
   },
 }));
 
@@ -43,27 +39,31 @@ export const Header = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="fixed">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            EG3301R ASI-304 Sample Demo Site
-          </Typography>
-          <Button>
-            <Link component={RouterLink} to="/futurework">
-              <Typography color="textPrimary"> Future Work </Typography>
-            </Link>
-          </Button>
-          <Button onClick={handleLogout}>
-            <Typography color="textPrimary">Log Out</Typography>
-          </Button>
+            <Grid item>
+              <Typography variant="h6">
+                ASI-304 Intelligent Renewable Energy Prediction
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Button>
+                <Link component={RouterLink} to="/futurework">
+                  <Typography color="secondary">Future Work</Typography>
+                </Link>
+              </Button>
+              <Button onClick={handleLogout}>
+                <Typography color="secondary">Log Out</Typography>
+              </Button>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>

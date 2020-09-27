@@ -1,10 +1,11 @@
-import React, { useState, useRouter } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,24 +41,29 @@ export default function Login() {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
-        <TextField
-          id="email"
-          label="Email Address"
-          type="email"
-          onChange={(event) => {
-            setEmail(event.target.value);
-          }}
-        />
-        <TextField
-          id="password"
-          label="Password"
-          type="password"
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
-        />
-        <Button onClick={handleSubmit}>Login</Button>
-        {/* <Redirect to={{ pathname: "/app" }} /> */}
+        <Grid container direction="row" alignItems="center" justify="center">
+          <Grid item>
+            <TextField
+              id="email"
+              label="Email Address"
+              type="email"
+              variant="outlined"
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+            />
+            <TextField
+              id="password"
+              label="Password"
+              type="password"
+              variant="outlined"
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+            />
+            <Button onClick={handleSubmit}>Login</Button>
+          </Grid>
+        </Grid>
       </div>
     </form>
   );
