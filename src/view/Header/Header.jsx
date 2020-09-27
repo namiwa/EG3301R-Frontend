@@ -7,7 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Link from "@material-ui/core/Link";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +25,22 @@ const useStyles = makeStyles((theme) => ({
 
 export const Header = () => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleLogout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(function () {
+        // Sign-out successful.
+        history.push("/");
+      })
+      .catch(function (error) {
+        // An error happened.
+        console.log(error.message);
+      });
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
@@ -42,6 +60,9 @@ export const Header = () => {
             <Link component={RouterLink} to="/futurework">
               <Typography color="textPrimary"> Future Work </Typography>
             </Link>
+          </Button>
+          <Button onClick={handleLogout}>
+            <Typography color="textPrimary">Log Out</Typography>
           </Button>
         </Toolbar>
       </AppBar>
