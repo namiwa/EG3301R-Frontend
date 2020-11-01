@@ -50,7 +50,7 @@ export default function Login() {
       });
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        history.push("/app"); //After successful login, user will be redirected to home.html
+        history.push("/map"); //After successful login, user will be redirected to home.html
       }
     });
   };
