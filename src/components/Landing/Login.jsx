@@ -7,7 +7,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { Grid, Paper, Typography, Divider } from "@material-ui/core";
 import { useStore } from 'react-redux'
-import { success, failure } from "../../redux/actions/loginAction";
+import { loginSuccess, loginFailure } from "../../redux/actions/authAction";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -45,8 +45,10 @@ export default function Login() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disabled, setDisabled] = useState(false)
 
   const handleSubmit = () => {
+    setDisabled(true)
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -55,10 +57,15 @@ export default function Login() {
       });
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        store.dispatch(loginSuccess())
         history.push("/map"); //After successful login, user will be redirected to home.html
+        console.log("logged in")
+      } else {
+        store.dispatch(loginFailure())
+        console.log("logged out")
       }
     });
-    store.dispatch(success())
+    
   };
 
   return (
@@ -74,7 +81,7 @@ export default function Login() {
           <Typography variant='h2' component='h2' color='secondary' gutterBottom>Welcome!</Typography>
           <Typography variant='p' component='p' align='justify' color='secondary'  gutterBottom>This web application is the culmination of a year’s work on machine learning with satellite data by a group of 
             Innovation and Design Programme (iDP) students from the National University of Singapore (NUS). 
-            Our team consists of Khairul Iman, Keerthika Reddy, Tessa Zhang and Chen Chih Chieh from Electrical and Computer Engineering.</Typography>
+            Our team consists of Keerthika Reddy, Khairul Iman, Tessa Zhang and Chen Chih Chieh from Electrical and Computer Engineering.</Typography>
           <Divider variant='middle' light/>
           <Typography variant='p' component='p' align='justify' color='secondary'  gutterBottom>You are welcome to explore the potential of renewable energy for any place across the world with our web application. 
             Our energy predictions are currently at an accuracy of ~70%, for three types of renewable energy: Solar, Wind and Geothermal.</Typography>
@@ -121,6 +128,7 @@ export default function Login() {
                 style={{ marginTop: 30 }}
                 color="primary"
                 disableElevation
+                disabled={disabled}
                 onClick={handleSubmit}
               >
                 Confirm

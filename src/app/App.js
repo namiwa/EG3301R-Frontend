@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import "typeface-roboto";
 
 import Header from "../view/Header/Header";
@@ -11,6 +11,7 @@ import SignUp from "../components/Landing/SignUp";
 import Maps from "../components/Maps/Maps";
 
 import "./App.css";
+import { useStore } from "react-redux";
 
 function MainApp() {
   // Firebase App (the core Firebase SDK) is always required and
@@ -33,6 +34,9 @@ function MainApp() {
 
   firebase.initializeApp(config);
 
+  const store = useStore()
+  const isLoggedIn = store.getState().isLoggedIn
+
   return (
     <Router>
       <div className="App">
@@ -41,8 +45,8 @@ function MainApp() {
           <Route exact path={"/futurework"} component={FutureWork} />
           <Route path={"/app"} component={Uploader} />
           <Route path={"/signup"} component={SignUp} />
-          <Route exact path={"/map"} component={Maps} />
-          <Route path={"/"} component={Login} />
+          <Route exact path={"/map"} render = {() => (store.getState().isLoggedIn ?  (<Maps/>) : (<Redirect to="/" />))} />
+         <Route path={"/"} component={Login} />
         </Switch>
       </div>
     </Router>

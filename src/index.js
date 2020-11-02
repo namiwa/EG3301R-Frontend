@@ -7,9 +7,9 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
-import loginReducer from "./redux/reducers/loginReducer";
+import authReducer from "./redux/reducers/authReducer";
 
-const store = createStore(loginReducer, composeWithDevTools());
+const store = createStore(authReducer, composeWithDevTools());
 
 const theme = createMuiTheme({
   palette: {

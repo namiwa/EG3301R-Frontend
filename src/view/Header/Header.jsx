@@ -9,6 +9,8 @@ import { Link as RouterLink, useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { Grid } from "@material-ui/core";
+import { logoutSuccess, logoutFailure } from "../../redux/actions/authAction";
+import { useStore } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
 
 export const Header = () => {
   const classes = useStyles();
+
+  const store = useStore();
+  const isLoggedIn = store.getState().isLoggedIn;
   const history = useHistory();
 
   const handleLogout = () => {
@@ -29,11 +34,14 @@ export const Header = () => {
       .signOut()
       .then(function () {
         // Sign-out successful.
+        store.dispatch(logoutSuccess());
         history.push("/");
+
       })
       .catch(function (error) {
         // An error happened.
         console.log(error.message);
+        store.dispatch(logoutFailure());
       });
   };
 
@@ -53,16 +61,19 @@ export const Header = () => {
               </Typography>
             </Grid>
 
-            {/* if user is logged in, hide these */}
             <Grid item>
-              <Button>
-                <Link component={RouterLink} to="/futurework">
-                  <Typography color="secondary">Future Work</Typography>
-                </Link>
-              </Button>
-              <Button onClick={handleLogout}>
-                <Typography color="secondary">Log Out</Typography>
-              </Button>
+              {!isLoggedIn && (
+                <Button>
+                  <Link component={RouterLink} to="/futurework">
+                    <Typography color="secondary">Future Work</Typography>
+                  </Link>
+                </Button>
+              )}
+              {isLoggedIn && (
+                <Button onClick={handleLogout}>
+                  <Typography color="secondary">Log Out</Typography>
+                </Button>
+              )}
             </Grid>
           </Grid>
         </Toolbar>
