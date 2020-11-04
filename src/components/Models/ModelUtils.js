@@ -1,76 +1,83 @@
-// Helper functions to attain local server files to process in tensorflow.js  
+// Helper functions to attain local server files to process in tensorflow.js
 import * as tf from '@tensorflow/tfjs';
 
 const getBinaryArrayPromise = (binaryPathArray = []) => {
-  return binaryPathArray.map( async (binaryPath) => {
-    return await fetch(binaryPath, {mode: 'no-cors'})
-      .then(res => {
-        return res.arrayBuffer();
-      })
-  })
-}
+  return binaryPathArray.map(async (binaryPath) => {
+    return await fetch(binaryPath, { mode: 'no-cors' }).then((res) => {
+      return res.arrayBuffer();
+    });
+  });
+};
 
 export const getImageFile = async (imageURL) => {
-  return await fetch(imageURL, {mode: 'no-cors'})
-    .then(res => {
+  return await fetch(imageURL, { mode: 'no-cors' })
+    .then((res) => {
       return res.arrayBuffer();
     })
-    .then(buffer => {
+    .then((buffer) => {
       return new Uint8ClampedArray(buffer);
-    })
-}
+    });
+};
 
 // Possibly some refactoring needed to fix the repeated Promise.all calls
 const getBinaryWeightFiles = async (binaryPathArray = [], names = []) => {
-  const binaryWeights =  await Promise.all([getBinaryArrayPromise(binaryPathArray)])
-    .then(res => {
-      return Promise.all(...res)
-    });
+  const binaryWeights = await Promise.all([
+    getBinaryArrayPromise(binaryPathArray),
+  ]).then((res) => {
+    return Promise.all(...res);
+  });
   const weightFiles = binaryWeights.map((val, ind) => {
     const u8intview = new Uint8Array(val);
     const blob = new Blob([u8intview]);
     const file = new File([blob], names[ind]);
     return file;
-  })
+  });
   return weightFiles;
-} 
+};
 
 const getJsonFile = (jsonObject = {}) => {
   const st = JSON.stringify(jsonObject);
   const blob = new Blob([st], { type: 'application/json' });
   return new File([blob], 'fist_model_web/model.json');
-}
+};
 
 export const reformImageTensor = (threeInputTensor) => {
   const resized = tf.cast(threeInputTensor, 'float32').div(255);
-  const t4d = tf.tensor4d(Array.from(resized.dataSync()),[1,64,64,3]);
+  const t4d = tf.tensor4d(Array.from(resized.dataSync()), [1, 64, 64, 3]);
   return t4d;
-}
+};
 
-export const getTFModel = async (binaryPathArray = [], jsonObject = {}, names = ['']) => {
+export const getTFModel = async (
+  binaryPathArray = [],
+  jsonObject = {},
+  names = [''],
+) => {
   const jsonFile = getJsonFile(jsonObject);
   const weightFiles = await getBinaryWeightFiles(binaryPathArray, names);
-  return await tf.loadGraphModel(tf.io.browserFiles([jsonFile, ...weightFiles]), {
-    strict: false,
-  })
-}
+  return await tf.loadGraphModel(
+    tf.io.browserFiles([jsonFile, ...weightFiles]),
+    {
+      strict: false,
+    },
+  );
+};
 
-export const indexOfMax = (arr) =>{
+export const indexOfMax = (arr) => {
   if (arr.length === 0) {
-      return -1;
+    return -1;
   }
 
   var max = arr[0];
   var maxIndex = 0;
 
   for (var i = 1; i < arr.length; i++) {
-      if (arr[i] > max) {
-          maxIndex = i;
-          max = arr[i];
-      }
+    if (arr[i] > max) {
+      maxIndex = i;
+      max = arr[i];
+    }
   }
 
   return maxIndex;
-}
+};
 
 export default { getTFModel, reformImageTensor, getImageFile };

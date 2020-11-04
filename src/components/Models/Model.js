@@ -1,4 +1,9 @@
-import {getTFModel, reformImageTensor, getImageFile, indexOfMax } from './ModelUtils';
+import {
+  getTFModel,
+  reformImageTensor,
+  getImageFile,
+  indexOfMax,
+} from './ModelUtils';
 import * as tf from '@tensorflow/tfjs';
 
 // import all .bin and json
@@ -14,7 +19,6 @@ import shard8 from './first_model_web/group1-shard8of11.bin';
 import shard9 from './first_model_web/group1-shard9of11.bin';
 import shard10 from './first_model_web/group1-shard10of11.bin';
 import shard11 from './first_model_web/group1-shard11of11.bin';
-
 
 const rawBinList = [
   shard1,
@@ -37,7 +41,7 @@ const ender = 'of11.bin';
 const names = rawBinList.map((val, ind) => {
   const j = ind + 1;
   return starter + j + ender;
-})
+});
 
 export const Model = async (imagePath) => {
   await getImageFile(imagePath); // This line doesn't affect the model, but is needed for processing.
@@ -49,11 +53,11 @@ export const Model = async (imagePath) => {
   let imgData = ctx.getImageData(0, 0, 64, 64);
   const threeInput = tf.browser.fromPixels(imgData);
   const model = await getTFModel(rawBinList, JsonModel, names);
-  const input = reformImageTensor(threeInput)
+  const input = reformImageTensor(threeInput);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const output = await model.predict(input).data();
-  console.log(output)
+  console.log(output);
   return indexOfMax(output);
-}
+};
 
 export default Model;

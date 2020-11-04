@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import SidePanelMaps from "./SidePanelMaps";
-import LatLngProvider from "./LatLngProvider";
+import SidePanelMaps from './SidePanelMaps';
+import LatLngProvider from './LatLngProvider';
 
 export default function MapsWrapper() {
   return (

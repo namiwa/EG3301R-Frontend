@@ -1,35 +1,35 @@
-import React from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import React from 'react';
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
-} from "use-places-autocomplete";
+} from 'use-places-autocomplete';
 import {
   Combobox,
   ComboboxInput,
   ComboboxPopover,
   ComboboxOption,
-} from "@reach/combobox";
-import { makeStyles } from "@material-ui/core/styles";
-import "@reach/combobox/styles.css";
+} from '@reach/combobox';
+import { makeStyles } from '@material-ui/core/styles';
+import '@reach/combobox/styles.css';
 
-import "./Map.css";
-import { LatLngContext } from "./LatLngProvider";
+import './Map.css';
+import { LatLngContext } from './LatLngProvider';
 
 const useStyles = makeStyles({
   root: {
-    display: "flex",
-    position: "absolute",
+    display: 'flex',
+    position: 'absolute',
   },
   mapTitle: {
-    textAlign: "center",
+    textAlign: 'center',
     marginTop: 45,
     marginLeft: 230,
   },
   placesSearch: {
-    position: "absolute",
-    transform: "translateX(-50%)",
-    width: "100%",
+    position: 'absolute',
+    transform: 'translateX(-50%)',
+    width: '100%',
     maxWidth: 400,
     zIndex: 10,
     marginTop: 65,
@@ -38,8 +38,8 @@ const useStyles = makeStyles({
 });
 
 const mapContainerStyle = {
-  width: "100vw",
-  height: "100vh",
+  width: '100vw',
+  height: '100vh',
 };
 
 // India as center
@@ -53,7 +53,7 @@ const options = {
   zoomControl: true,
 };
 
-const libraries = ["places"];
+const libraries = ['places'];
 
 export function Maps() {
   const { isLoaded, loadError } = useLoadScript({
@@ -78,7 +78,7 @@ export function Maps() {
         lng: event.latLng.lng(),
       }));
     },
-    [setCurrentLatLng]
+    [setCurrentLatLng],
   );
 
   //reference to map instance
@@ -92,8 +92,8 @@ export function Maps() {
     mapRef.current.setZoom(14);
   }, []);
 
-  if (loadError) return "Error Loading Maps";
-  if (!isLoaded) return "Loading Maps";
+  if (loadError) return 'Error Loading Maps';
+  if (!isLoaded) return 'Loading Maps';
 
   return (
     <div className={classes.root}>
@@ -155,10 +155,10 @@ const Search = ({ panTo, className }) => {
             setValue(e.target.value);
           }}
           disabled={!ready}
-          placeholder={"Enter Location"}
+          placeholder={'Enter Location'}
         />
         <ComboboxPopover>
-          {status === "OK" &&
+          {status === 'OK' &&
             data.map(({ id, description }) => (
               <ComboboxOption key={id + description} value={description} />
             ))}

@@ -1,36 +1,36 @@
-import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
-import { Link, useHistory } from "react-router-dom";
-import firebase from "firebase/app";
-import "firebase/auth";
-import { Grid, Paper, Typography } from "@material-ui/core";
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import { Link, useHistory } from 'react-router-dom';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { Grid, Paper, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: "25ch",
+      width: '25ch',
     },
     marginTop: 100,
   },
   paper: {
-    background: "#ffffff",
+    background: '#ffffff',
     opacity: 0.85,
-    paddingTop: "5%",
-    paddingBottom: "5%",
-    paddingRight: "3%",
-    paddingLeft: "3%",
+    paddingTop: '5%',
+    paddingBottom: '5%',
+    paddingRight: '3%',
+    paddingLeft: '3%',
   },
   item: {
-    paddingTop: "5%",
+    paddingTop: '5%',
   },
   login: {
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    transform: "translate(-50%, -50%)",
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
   },
 }));
 
@@ -38,8 +38,8 @@ export default function Login() {
   const classes = useStyles();
 
   const history = useHistory();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = () => {
     firebase
@@ -50,7 +50,7 @@ export default function Login() {
       });
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        history.push("/app"); //After successful login, user will be redirected to home.html
+        history.push('/app'); //After successful login, user will be redirected to home.html
       }
     });
   };

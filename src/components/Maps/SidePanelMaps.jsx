@@ -1,19 +1,19 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import { LatLngContext } from "./LatLngProvider";
-import Maps from "./Maps";
+import { LatLngContext } from './LatLngProvider';
+import Maps from './Maps';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+    display: 'flex',
   },
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -35,16 +35,16 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   selected: {
-    backgroundColor: "red",
+    backgroundColor: 'red',
   },
   notSelected: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 }));
 
 export const SidePanelMaps = React.memo(() => {
   const classes = useStyles();
-  const [currentRenewable, setRenewable] = React.useState("");
+  const [currentRenewable, setRenewable] = React.useState('');
   const { currentLatLng } = React.useContext(LatLngContext);
   const onRenewableClick = (renewableText) => {
     setRenewable(renewableText);
@@ -62,7 +62,7 @@ export const SidePanelMaps = React.memo(() => {
         anchor="left"
       >
         <List>
-          {["Solar", "Wind", "Hydro", "Geothermal"].map((text, index) => (
+          {['Solar', 'Wind', 'Hydro', 'Geothermal'].map((text, index) => (
             <ListItem button key={text} onClick={() => onRenewableClick(text)}>
               <ListItemText primary={text} />
             </ListItem>
@@ -70,7 +70,7 @@ export const SidePanelMaps = React.memo(() => {
         </List>
         <Divider />
         <List>
-          {["Get Data", "Get Prediction", "Save Results"].map((text, index) => (
+          {['Get Data', 'Get Prediction', 'Save Results'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemText primary={text} />
             </ListItem>
