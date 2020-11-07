@@ -1,17 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./app";
-import * as serviceWorker from "./serviceWorker";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './app';
+import * as serviceWorker from './serviceWorker';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#000",
+      main: '#000',
     },
     secondary: {
-      main: "#fff",
+      main: '#fff',
     },
   },
 });
@@ -22,7 +22,7 @@ ReactDOM.render(
       <App />
     </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
