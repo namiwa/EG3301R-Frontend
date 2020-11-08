@@ -16,7 +16,7 @@ import Login from '../components/Landing/Login';
 import SignUp from '../components/Landing/SignUp';
 
 import './App.css';
-import { useStore, useSelector } from 'react-redux';
+import { useStore } from 'react-redux';
 
 function MainApp() {
   // Firebase App (the core Firebase SDK) is always required and
