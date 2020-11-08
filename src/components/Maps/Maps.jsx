@@ -31,6 +31,7 @@ const useStyles = makeStyles({
     transform: 'translateX(-50%)',
     width: '100%',
     maxWidth: 400,
+    marginTop: 65,
     zIndex: 10,
     marginLeft: 330,
   },
