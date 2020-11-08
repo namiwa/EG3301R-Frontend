@@ -84,8 +84,7 @@ export default function Login() {
             Welcome!
           </Typography>
           <Typography
-            variant="p"
-            component="p"
+            variant="body1"
             align="justify"
             color="secondary"
             gutterBottom
@@ -98,8 +97,7 @@ export default function Login() {
           </Typography>
           <Divider variant="middle" light />
           <Typography
-            variant="p"
-            component="p"
+            variant="body1"
             align="justify"
             color="secondary"
             gutterBottom
@@ -111,8 +109,7 @@ export default function Login() {
           </Typography>
           <Divider variant="middle" light />
           <Typography
-            variant="p"
-            component="p"
+            variant="body1"
             align="justify"
             color="secondary"
             gutterBottom
