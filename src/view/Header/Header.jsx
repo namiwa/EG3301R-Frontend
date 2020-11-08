@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +12,19 @@ import "firebase/auth";
 import { Grid } from "@material-ui/core";
 import { logoutSuccess, logoutFailure } from "../../redux/actions/authAction";
 import { useStore } from "react-redux";
+=======
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { Grid } from '@material-ui/core';
+>>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,9 +48,13 @@ export const Header = () => {
       .signOut()
       .then(function () {
         // Sign-out successful.
+<<<<<<< HEAD
         store.dispatch(logoutSuccess());
         history.push("/");
 
+=======
+        history.push('/');
+>>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
       })
       .catch(function (error) {
         // An error happened.

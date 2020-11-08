@@ -1,26 +1,26 @@
-import React, { useState } from "react";
-import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
-import { makeStyles } from "@material-ui/core/styles";
-import ImageUploader from "react-images-upload";
-import Model from "../Models/Model";
-import { Paper } from "@material-ui/core";
+import React, { useState } from 'react';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import ImageUploader from 'react-images-upload';
+import Model from '../Models/Model';
+import { Paper } from '@material-ui/core';
 
 const CATEGORIES = [
-  "AnnualCrop",
-  "Forest",
-  "HerbaceousVegetation",
-  "Highway",
-  "Industrial",
-  "Pasture",
-  "PermanentCrop",
-  "Residential",
-  "River",
-  "SeaLake",
+  'AnnualCrop',
+  'Forest',
+  'HerbaceousVegetation',
+  'Highway',
+  'Industrial',
+  'Pasture',
+  'PermanentCrop',
+  'Residential',
+  'River',
+  'SeaLake',
 ];
 
 // Add other routes for potential predictive features, about the project, anything interesting
@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
     marginTop: 100,
   },
   paper: {
-    background: "#ffffff",
+    background: '#ffffff',
     opacity: 0.85,
     padding: 20,
   },
@@ -45,14 +45,14 @@ export const Uploader = (props) => {
   const [pictures, setPictures] = useState(null);
 
   const [detection, setDetection] = useState({
-    outputClass: "",
+    outputClass: '',
   });
 
   const onDrop = (picture) => {
     const src = window.URL.createObjectURL(picture[picture.length - 1]);
     const pic = new Image(64, 64);
     pic.src = src;
-    pic.crossOrigin = "";
+    pic.crossOrigin = '';
     setPictures([src]);
     Model(src).then((output) => {
       const ans = CATEGORIES[output];
@@ -65,7 +65,7 @@ export const Uploader = (props) => {
   const handleOnClick = (e) => {
     e.preventDefault();
     setDetection({
-      outputClass: "",
+      outputClass: '',
     });
     setPictures([]);
   };
@@ -76,7 +76,7 @@ export const Uploader = (props) => {
     ) : (
       <img
         src={pictures[pictures.length - 1]}
-        alt={"thisistest"}
+        alt={'thisistest'}
         width={200}
         height={200}
       />
@@ -87,11 +87,11 @@ export const Uploader = (props) => {
     return (
       <Card className={classes.cardContainer}>
         <Typography>
-          {" "}
-          {detection.outputClass === ""
-            ? "Upload an image to test the model!"
-            : "The model thinks the image label is a " +
-              detection.outputClass}{" "}
+          {' '}
+          {detection.outputClass === ''
+            ? 'Upload an image to test the model!'
+            : 'The model thinks the image label is a ' +
+              detection.outputClass}{' '}
         </Typography>
         <canvas id="tutorial"></canvas>
       </Card>
@@ -123,14 +123,14 @@ export const Uploader = (props) => {
     return (
       <div>
         <Typography>
-          The possible image labels are{" "}
+          The possible image labels are{' '}
           {CATEGORIES.map((val) => {
-            return val + " ";
+            return val + ' ';
           })}
           .
         </Typography>
         <Typography>
-          The model was trained on the{" "}
+          The model was trained on the{' '}
           <Link href="https://github.com/phelber/EuroSAT">
             Eurosat Dataset.
           </Link>
@@ -150,7 +150,7 @@ export const Uploader = (props) => {
           <ImageUploader
             {...props}
             onChange={onDrop}
-            imgExtension={[".jpg", ".png"]}
+            imgExtension={['.jpg', '.png']}
             maxFileSize={5242880}
           />
           <Preview />

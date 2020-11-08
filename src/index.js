@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
@@ -10,14 +11,22 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import authReducer from "./redux/reducers/authReducer";
 
 const store = createStore(authReducer, composeWithDevTools());
+=======
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './app';
+import * as serviceWorker from './serviceWorker';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+>>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#000",
+      main: '#000',
     },
     secondary: {
-      main: "#fff",
+      main: '#fff',
     },
   },
 });
@@ -30,7 +39,7 @@ ReactDOM.render(
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
