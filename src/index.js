@@ -1,9 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './app';
-import * as serviceWorker from './serviceWorker';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./app";
+import * as serviceWorker from "./serviceWorker";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import { composeWithDevTools } from 'redux-devtools-extension';
+import authReducer from "./redux/reducers/authReducer";
+
+const store = createStore(authReducer, composeWithDevTools());
 
 const theme = createMuiTheme({
   palette: {
@@ -18,9 +24,11 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

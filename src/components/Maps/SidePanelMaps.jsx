@@ -5,7 +5,8 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import { LatLngContext } from './LatLngProvider';
 import Maps from './Maps';
 
@@ -51,6 +52,11 @@ export const SidePanelMaps = React.memo(() => {
     console.log(currentRenewable);
     console.log(currentLatLng);
   };
+  const [turbine, setTurbine] = React.useState('');
+
+  const handleChange = (event) => {
+    setTurbine(event.target.value);
+  };
   return (
     <div className={classes.root}>
       <Drawer
@@ -65,6 +71,21 @@ export const SidePanelMaps = React.memo(() => {
           {['Solar', 'Wind', 'Hydro', 'Geothermal'].map((text, index) => (
             <ListItem button key={text} onClick={() => onRenewableClick(text)}>
               <ListItemText primary={text} />
+              {text === 'Geothermal' ? (
+                <Select
+                  labelId="name_turbine_type"
+                  id="name_turbine_type"
+                  value={turbine}
+                  onChange={handleChange}
+                >
+                  <MenuItem value={'Single flash'}>Single flash</MenuItem>
+                  <MenuItem value={'Double flash'}>Double flash</MenuItem>
+                  <MenuItem value={'ORC'}>ORC</MenuItem>
+                  <MenuItem value={'Dry steam'}>Dry steam</MenuItem>
+                </Select>
+              ) : (
+                null
+              )}
             </ListItem>
           ))}
         </List>
