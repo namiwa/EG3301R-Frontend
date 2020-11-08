@@ -14,6 +14,7 @@ import {
   wind_prediction_url,
   solar_prediction_url,
   geothermal_prediction_url,
+  fetcher,
 } from '../../utils';
 
 const drawerWidth = 240;
@@ -62,6 +63,7 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
   const [currentRenewable, setRenewable] = React.useState('');
   const { currentLatLng } = React.useContext(LatLngContext);
   const [turbine, setTurbine] = React.useState('');
+  const [prediction, setPrediction] = React.useState(0);
 
   const handleChange = (event) => {
     setTurbine(event.target.value);
@@ -78,7 +80,14 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
       } else {
         url = types_url_map[renewableText](lat, lng);
       }
+      console.log(url);
+      fetcher(url).then((res) => {
+        if ('prediction' in res) {
+          setPrediction(res['prediction']);
+        }
+      });
     }
+
     console.log(currentRenewable);
     console.log(currentLatLng);
   };
@@ -121,7 +130,12 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
         </List>
         <Divider />
         <Typography variant="h1"> </Typography>
-        <Typography>Results of potential power: </Typography>
+        <Typography>
+          Potential Power in MWs:{' '}
+          {prediction || prediction === 0
+            ? prediction.toFixed(2)
+            : 'Something went wrong'}{' '}
+        </Typography>
       </Drawer>
       <div className={classes.toolbar} />
       <Maps />
