@@ -32,7 +32,6 @@ const useStyles = makeStyles({
     width: '100%',
     maxWidth: 400,
     zIndex: 10,
-    marginTop: 65,
     marginLeft: 330,
   },
 });
