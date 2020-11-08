@@ -12,6 +12,8 @@ import Maps from './Maps';
 
 const drawerWidth = 240;
 
+const renewable_types = ['Solar', 'Wind', 'Hydro', 'Geothermal'];
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SidePanelMaps = React.memo(() => {
+export const SidePanelMaps = React.forwardRef((props, ref) => {
   const classes = useStyles();
   const [currentRenewable, setRenewable] = React.useState('');
   const { currentLatLng } = React.useContext(LatLngContext);
@@ -57,8 +59,9 @@ export const SidePanelMaps = React.memo(() => {
   const handleChange = (event) => {
     setTurbine(event.target.value);
   };
+
   return (
-    <div className={classes.root}>
+    <div className={classes.root} ref={ref}>
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -68,8 +71,15 @@ export const SidePanelMaps = React.memo(() => {
         anchor="left"
       >
         <List>
-          {['Solar', 'Wind', 'Hydro', 'Geothermal'].map((text, index) => (
-            <ListItem button key={text} onClick={() => onRenewableClick(text)}>
+          {renewable_types.map((text, index) => (
+            <ListItem
+              button
+              key={text}
+              onClick={() => {
+                console.log('hi there');
+                onRenewableClick(text);
+              }}
+            >
               <ListItemText primary={text} />
               {text === 'Geothermal' ? (
                 <Select
