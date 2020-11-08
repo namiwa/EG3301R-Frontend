@@ -23,6 +23,11 @@ const authReducer = (state = initialState, action) => {
         isLoggedIn: false,
       };
 
+    case actionTypes.LOGOUT_FAILURE:
+      console.log("logout failed");
+      return {
+        isLoggedIn: true,
+      };
     default:
       return state;
   }

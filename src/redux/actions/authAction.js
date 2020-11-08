@@ -13,7 +13,7 @@ export const loginSuccess = () => {
 
 export const loginFailure = () => {
     return {
-        type: actionTypes.LOGIN_SUCCESS,
+        type: actionTypes.LOGIN_FAILURE,
     };
 };
 

@@ -1,12 +1,11 @@
-<<<<<<< HEAD
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import "typeface-roboto";
-=======
 import React from 'react';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import 'typeface-roboto';
->>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
 
 import Header from '../view/Header/Header';
 import Uploader from '../components/Uploader/Uploader';
@@ -16,12 +15,8 @@ import Maps from '../components/Maps';
 import Login from '../components/Landing/Login';
 import SignUp from '../components/Landing/SignUp';
 
-<<<<<<< HEAD
-import "./App.css";
-import { useStore } from "react-redux";
-=======
 import './App.css';
->>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
+import { useStore, useSelector } from 'react-redux';
 
 function MainApp() {
   // Firebase App (the core Firebase SDK) is always required and
@@ -42,29 +37,27 @@ function MainApp() {
     measurementId: 'G-DK8V13KB05',
   };
 
-  firebase.initializeApp(config);
-
-  const store = useStore()
-  const isLoggedIn = store.getState().isLoggedIn
+  if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+  }
+  const store = useStore();
 
   return (
     <Router>
       <div className="App">
-        <Header component={firebase} />
+        <Header component={firebase}/>
         <Switch>
-<<<<<<< HEAD
-          <Route exact path={"/futurework"} component={FutureWork} />
-          <Route path={"/app"} component={Uploader} />
-          <Route path={"/signup"} component={SignUp} />
-          <Route exact path={"/map"} render = {() => (store.getState().isLoggedIn ?  (<Maps/>) : (<Redirect to="/" />))} />
-         <Route path={"/"} component={Login} />
-=======
           <Route exact path={'/futurework'} component={FutureWork} />
           <Route path={'/app'} component={Uploader} />
           <Route path={'/signup'} component={SignUp} />
-          <Route exact path={'/map'} component={Maps} />
+          <Route
+            exact
+            path={'/map'}
+            render={() =>
+              store.getState().isLoggedIn ? <Maps /> : <Redirect to="/" />
+            }
+          />
           <Route path={'/'} component={Login} />
->>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
         </Switch>
       </div>
     </Router>

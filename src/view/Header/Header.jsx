@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -11,20 +10,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { Grid } from "@material-ui/core";
 import { logoutSuccess, logoutFailure } from "../../redux/actions/authAction";
-import { useStore } from "react-redux";
-=======
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import { Grid } from '@material-ui/core';
->>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
+import { useStore, connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Header = () => {
+function Header (props) {
   const classes = useStyles();
 
   const store = useStore();
-  const isLoggedIn = store.getState().isLoggedIn;
   const history = useHistory();
+  const isLoggedIn = props.isLoggedIn
 
   const handleLogout = () => {
     firebase
@@ -48,13 +34,9 @@ export const Header = () => {
       .signOut()
       .then(function () {
         // Sign-out successful.
-<<<<<<< HEAD
         store.dispatch(logoutSuccess());
         history.push("/");
 
-=======
-        history.push('/');
->>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
       })
       .catch(function (error) {
         // An error happened.
@@ -80,13 +62,6 @@ export const Header = () => {
             </Grid>
 
             <Grid item>
-              {!isLoggedIn && (
-                <Button>
-                  <Link component={RouterLink} to="/futurework">
-                    <Typography color="secondary">Future Work</Typography>
-                  </Link>
-                </Button>
-              )}
               {isLoggedIn && (
                 <Button onClick={handleLogout}>
                   <Typography color="secondary">Log Out</Typography>
@@ -100,4 +75,10 @@ export const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps)(Header);

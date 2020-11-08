@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -10,16 +9,6 @@ import { Grid, Paper, Typography, Divider } from "@material-ui/core";
 import { useStore } from 'react-redux'
 import { loginSuccess, loginFailure } from "../../redux/actions/authAction";
 
-=======
-import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import { Link, useHistory } from 'react-router-dom';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import { Grid, Paper, Typography } from '@material-ui/core';
->>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,20 +29,12 @@ const useStyles = makeStyles((theme) => ({
   item: {
     paddingTop: '5%',
   },
-<<<<<<< HEAD
   main: {
     // position: "absolute",
     // left: "50%",
     // top: "50%",
     // transform: "translate(-50%, -50%)",
     padding: "10%",
-=======
-  login: {
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
->>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
   },
 }));
 
@@ -62,14 +43,9 @@ export default function Login() {
 
   const store = useStore()
   const history = useHistory();
-<<<<<<< HEAD
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(false)
-=======
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
->>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
 
   const handleSubmit = () => {
     setDisabled(true)
@@ -81,16 +57,11 @@ export default function Login() {
       });
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-<<<<<<< HEAD
         store.dispatch(loginSuccess())
-        history.push("/map"); //After successful login, user will be redirected to home.html
+        history.push("/map"); //After successful login, user will be redirected to map
         console.log("logged in")
       } else {
-        store.dispatch(loginFailure())
         console.log("logged out")
-=======
-        history.push('/app'); //After successful login, user will be redirected to home.html
->>>>>>> eca5af6930f512c1a03302849d8885c43f71f3f2
       }
     });
     
