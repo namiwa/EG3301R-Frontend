@@ -45,7 +45,7 @@ function MainApp() {
   return (
     <Router>
       <div className="App">
-        <Header component={firebase}/>
+        <Header component={firebase} />
         <Switch>
           <Route exact path={'/futurework'} component={FutureWork} />
           <Route path={'/app'} component={Uploader} />

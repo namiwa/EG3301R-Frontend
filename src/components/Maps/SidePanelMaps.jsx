@@ -83,9 +83,7 @@ export const SidePanelMaps = React.memo(() => {
                   <MenuItem value={'ORC'}>ORC</MenuItem>
                   <MenuItem value={'Dry steam'}>Dry steam</MenuItem>
                 </Select>
-              ) : (
-                null
-              )}
+              ) : null}
             </ListItem>
           ))}
         </List>
