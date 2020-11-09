@@ -14,6 +14,7 @@ import FutureWork from '../components/Future/FutureWork';
 import Maps from '../components/Maps';
 import Login from '../components/Landing/Login';
 import SignUp from '../components/Landing/SignUp';
+import History from '../components/History/History';
 
 import './App.css';
 import { useStore } from 'react-redux';
@@ -25,6 +26,7 @@ function MainApp() {
 
   // Add the Firebase products that you want to use
   require('firebase/auth');
+  require('firebase/database');
 
   var config = {
     apiKey: 'AIzaSyA19IXEtl_FCH7syIR8GGDd53v39rfubeY',
@@ -45,10 +47,17 @@ function MainApp() {
   return (
     <Router>
       <div className="App">
-        <Header component={firebase}/>
+        <Header component={firebase} />
         <Switch>
           <Route exact path={'/futurework'} component={FutureWork} />
           <Route path={'/app'} component={Uploader} />
+          <Route
+            exact
+            path={'/mydata'}
+            render={() =>
+              store.getState().isLoggedIn ? <History /> : <Redirect to="/" />
+            }
+          />
           <Route path={'/signup'} component={SignUp} />
           <Route
             exact
