@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link, useHistory } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { Grid, Paper, Typography, Divider } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import DataTable from './DataTable';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,35 +28,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '10%',
   },
 }));
-
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'date', headerName: 'Date', type: 'date', width: 130 },
-  { field: 'location', headerName: 'Coordinates', width: 130 },
-  { field: 'energyType', headerName: 'Energy Type', width: 130 },
-  {
-    field: 'predVal',
-    headerName: 'Predicted Output',
-    type: 'number',
-    width: 150,
-  },
-  {
-    field: 'turbineType',
-    headerName: 'Turbine Type',
-    width: 150,
-  },
-];
-
-var rows = [
-  {
-    id: 1,
-    date: 'CHRISTMAS',
-    location: 'lat, long',
-    energyType: 'Geothermal',
-    turbineType: 'Single flash',
-    predVal: 90,
-  },
-];
 
 export default function History() {
   const classes = useStyles();
@@ -101,7 +69,7 @@ export default function History() {
 
   useEffect(() => {
     console.log(rows);
-    if (rows != undefined) {
+    if (rows !== undefined) {
       setLoaded(true);
     }
   }, [rows]);
