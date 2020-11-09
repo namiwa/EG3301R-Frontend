@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This is the source code the the static site we built for the prototype website. The static site is hosted on Heroku, and can be accessed [here](https://downloadedfromspace.herokuapp.com/)
+This is the source code the the static site we built for the prototype website. The static site is hosted on [Netlify](https://www.netlify.com/), and can be accessed at [https://asi-304-prototype.netlify.app/](https://asi-304-prototype.netlify.app/)
 
 ## Available Scripts
 
@@ -34,10 +34,9 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `yarn start`
 
 Serves the build static page made by `yarn build` <br />
-Currently hosted at [Heroku.](https://www.heroku.com/home) <br />
+Currently hosted at [Netlify.](https://www.netlify.com/) <br />
 
-View our project [here!](https://downloadedfromspace.herokuapp.com/)
-
+View our project [here.](https://asi-304-prototype.netlify.app/)
 
 ### `yarn eject`
 

@@ -1,17 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 import { LatLngContext } from './LatLngProvider';
 import Maps from './Maps';
 import firebase from 'firebase/app';
+import MenuItem from '@material-ui/core/MenuItem';
+import {
+  wind_prediction_url,
+  solar_prediction_url,
+  geothermal_prediction_url,
+  fetcher,
+} from '../../utils';
 
 const drawerWidth = 240;
+
+const renewable_types = ['Solar', 'Wind', 'Geothermal'];
+
+const types_url_map = {
+  Solar: solar_prediction_url,
+  Wind: wind_prediction_url,
+  Geothermal: geothermal_prediction_url,
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,13 +59,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SidePanelMaps = React.memo(() => {
+export const SidePanelMaps = React.forwardRef((props, ref) => {
   const classes = useStyles();
   const [currentRenewable, setRenewable] = React.useState('');
   const { currentLatLng } = React.useContext(LatLngContext);
 
   const onRenewableClick = (renewableText) => {
     setRenewable(renewableText);
+    if (renewableText in types_url_map) {
+      const lat = currentLatLng.lat;
+      const lng = currentLatLng.lng;
+      let url = '';
+      if (renewableText === 'Geothermal') {
+        url = types_url_map[renewableText](lat, lng, turbine);
+      } else {
+        url = types_url_map[renewableText](lat, lng);
+      }
+      console.log(url);
+      fetcher(url).then((res) => {
+        if ('prediction' in res) {
+          setPrediction(res['prediction']);
+        }
+      });
+    }
+
     console.log(currentRenewable);
     console.log(currentLatLng);
   };
@@ -104,7 +136,7 @@ export const SidePanelMaps = React.memo(() => {
       .set(firebase.database.ServerValue.increment(1));
   };
   return (
-    <div className={classes.root}>
+    <div className={classes.root} ref={ref}>
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -114,8 +146,14 @@ export const SidePanelMaps = React.memo(() => {
         anchor="left"
       >
         <List>
-          {['Solar', 'Wind', 'Hydro', 'Geothermal'].map((text, index) => (
-            <ListItem button key={text} onClick={() => onRenewableClick(text)}>
+          {renewable_types.map((text, index) => (
+            <ListItem
+              button
+              key={text}
+              onClick={() => {
+                onRenewableClick(text);
+              }}
+            >
               <ListItemText primary={text} />
               {text === 'Geothermal' ? (
                 <Select
@@ -135,12 +173,19 @@ export const SidePanelMaps = React.memo(() => {
         </List>
         <Divider />
         <List>
-          {['Get Data', 'Get Prediction', 'Save Results'].map((text, index) => (
+          {['Get Prediction', 'Save Results'].map((text, index) => (
             <ListItem button key={text} onClick={handlePredict}>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
+        <Typography variant="h1"> </Typography>
+        <Typography>
+          Potential Power in MWs:{' '}
+          {prediction || prediction === 0
+            ? prediction.toFixed(2)
+            : 'Something went wrong'}{' '}
+        </Typography>
       </Drawer>
       <div className={classes.toolbar} />
       <Maps />

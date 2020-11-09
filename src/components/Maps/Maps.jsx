@@ -31,8 +31,8 @@ const useStyles = makeStyles({
     transform: 'translateX(-50%)',
     width: '100%',
     maxWidth: 400,
-    zIndex: 10,
     marginTop: 65,
+    zIndex: 10,
     marginLeft: 330,
   },
 });
@@ -55,7 +55,7 @@ const options = {
 
 const libraries = ['places'];
 
-export function Maps() {
+export const Maps = React.forwardRef((props, ref) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -96,7 +96,7 @@ export function Maps() {
   if (!isLoaded) return 'Loading Maps';
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} ref={ref}>
       <Search panTo={panTo} className={classes.placesSearch} />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
@@ -115,7 +115,7 @@ export function Maps() {
       </GoogleMap>
     </div>
   );
-}
+});
 
 const Search = ({ panTo, className }) => {
   const {
