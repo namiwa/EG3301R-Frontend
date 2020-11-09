@@ -23,7 +23,12 @@ const columns = [
 export default function DataTable(trying) {
   return (
     <Paper style={{ height: 380, width: '100%', backgroundColor: 'white' }}>
-      <DataGrid rows={trying.rows} columns={columns} pageSize={5} checkboxSelection />
+      <DataGrid
+        rows={trying.rows}
+        columns={columns}
+        pageSize={5}
+        checkboxSelection
+      />
     </Paper>
   );
 }

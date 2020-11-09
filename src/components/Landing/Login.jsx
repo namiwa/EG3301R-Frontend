@@ -105,7 +105,7 @@ export default function Login() {
           >
             We are from the Electrical and Computer Engineering Department:
           </Typography>
-          <Divider/>
+          <Divider />
           <Typography
             // variant="body1"
             component="ul"

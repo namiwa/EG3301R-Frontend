@@ -9,7 +9,12 @@ import { useHistory } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { Grid } from '@material-ui/core';
-import { logoutSuccess, logoutFailure, viewData, viewMap } from '../../redux/actions/appAction';
+import {
+  logoutSuccess,
+  logoutFailure,
+  viewData,
+  viewMap,
+} from '../../redux/actions/appAction';
 import { useStore, connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,12 +51,12 @@ function Header(props) {
   };
 
   const handleViewData = () => {
-    store.dispatch(viewData())
+    store.dispatch(viewData());
     history.push('/mydata');
   };
 
   const handleViewMap = () => {
-    store.dispatch(viewMap())
+    store.dispatch(viewMap());
     history.push('/map');
   };
 
