@@ -63,7 +63,7 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
   const classes = useStyles();
   const [currentRenewable, setRenewable] = React.useState('');
   const { currentLatLng } = React.useContext(LatLngContext);
-
+  const [prediction, setPrediction] = React.useState(0);
   const onRenewableClick = (renewableText) => {
     setRenewable(renewableText);
     if (renewableText in types_url_map) {
