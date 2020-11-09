@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -9,6 +9,7 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import { LatLngContext } from './LatLngProvider';
 import Maps from './Maps';
+import firebase from 'firebase/app';
 import MenuItem from '@material-ui/core/MenuItem';
 import {
   wind_prediction_url,
@@ -62,13 +63,7 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
   const classes = useStyles();
   const [currentRenewable, setRenewable] = React.useState('');
   const { currentLatLng } = React.useContext(LatLngContext);
-  const [turbine, setTurbine] = React.useState('');
   const [prediction, setPrediction] = React.useState(0);
-
-  const handleChange = (event) => {
-    setTurbine(event.target.value);
-  };
-
   const onRenewableClick = (renewableText) => {
     setRenewable(renewableText);
     if (renewableText in types_url_map) {
@@ -86,12 +81,60 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
           setPrediction(res['prediction']);
         }
       });
+      console.log(prediction)
     }
 
     console.log(currentRenewable);
     console.log(currentLatLng);
   };
 
+  const [currentDate, setCurrentDate] = useState('');
+
+  useEffect(() => {
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    setCurrentDate(date + '/' + month + '/' + year);
+  }, []);
+
+  const [turbine, setTurbine] = React.useState('');
+
+  const handleTurbine = (event) => {
+    setTurbine(event.target.value);
+    console.log(turbine);
+  };
+
+  const handlePredict = (event) => {
+    var predVal = prediction;
+    var predIndex = 0;
+    var uid = firebase.auth().currentUser.uid;
+
+    firebase
+      .database()
+      .ref('users/' + uid)
+      .on('value', function (snapshot) {
+        predIndex = snapshot.val().index;
+      });
+
+    firebase
+      .database()
+      .ref('users/' + uid)
+      .child('predictions')
+      .child(predIndex)
+      .update({
+        date: currentDate,
+        location: currentLatLng,
+        energyType: currentRenewable,
+        turbineType: turbine,
+        prediction: predVal,
+      });
+
+    firebase
+      .database()
+      .ref('users/' + uid)
+      .child('index')
+      .set(firebase.database.ServerValue.increment(1));
+  };
   return (
     <div className={classes.root} ref={ref}>
       <Drawer
@@ -117,7 +160,7 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
                   labelId="name_turbine_type"
                   id="name_turbine_type"
                   value={turbine}
-                  onChange={handleChange}
+                  onChange={handleTurbine}
                 >
                   <MenuItem value={'Single flash'}>Single flash</MenuItem>
                   <MenuItem value={'Double flash'}>Double flash</MenuItem>
@@ -129,6 +172,13 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
           ))}
         </List>
         <Divider />
+        <List>
+          {['Save Prediction'].map((text, index) => (
+            <ListItem button key={text} onClick={handlePredict}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
         <Typography variant="h1"> </Typography>
         <Typography>
           Potential Power in MWs:{' '}

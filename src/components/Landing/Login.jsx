@@ -7,7 +7,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { Grid, Paper, Typography, Divider } from '@material-ui/core';
 import { useStore } from 'react-redux';
-import { loginSuccess } from '../../redux/actions/authAction';
+import { loginSuccess } from '../../redux/actions/appAction';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -84,7 +84,8 @@ export default function Login() {
             Welcome!
           </Typography>
           <Typography
-            variant="body1"
+            // variant="p"
+            component="p"
             align="justify"
             color="secondary"
             gutterBottom
@@ -92,33 +93,73 @@ export default function Login() {
             This web application is the culmination of a year’s work on machine
             learning with satellite data by a group of Innovation and Design
             Programme (iDP) students from the National University of Singapore
-            (NUS). Our team consists of Keerthika Reddy, Khairul Iman, Tessa
-            Zhang and Chen Chih Chieh from Electrical and Computer Engineering.
+            (NUS).
           </Typography>
-          <Divider variant="middle" light />
           <Typography
-            variant="body1"
+            // variant="p"
+            component="p"
+            align="justify"
+            color="secondary"
+            gutterBottom
+            paragraph={true}
+          >
+            We are from the Electrical and Computer Engineering Department:
+          </Typography>
+          <Divider/>
+          <Typography
+            // variant="body1"
+            component="ul"
+            align="justify"
+            color="secondary"
+            gutterBottom
+            paragraph={true}
+          >
+            <li>Keerthika Reddy (EE)</li>
+            <li>Khairul Iman (CEG)</li>
+            <li>Tessa Zhang (CEG)</li>
+            <li>Chen Chih Chieh (EE)</li>
+          </Typography>
+          <Typography
+            // variant="p"
+            component="p"
             align="justify"
             color="secondary"
             gutterBottom
           >
             You are welcome to explore the potential of renewable energy for any
             place across the world with our web application. Our energy
-            predictions are currently at an accuracy of ~70%, for three types of
-            renewable energy: Solar, Wind and Geothermal.
+            predictions are currently at an accuracy of {'>'}90%, for three
+            types of renewable energy: <u>Solar, Wind and Geothermal</u>.
           </Typography>
-          <Divider variant="middle" light />
           <Typography
-            variant="body1"
+            variant="h4"
+            component="h4"
+            color="secondary"
+            gutterBottom
+          >
+            How do I get a prediction?
+          </Typography>
+          <Typography
+            // variant="p"
+            component="p"
             align="justify"
             color="secondary"
             gutterBottom
           >
             There are only 3 steps to getting an energy prediction for your
-            desired location. Simply login (or sign up as a new user) with your
-            credentials, click on a location with our map and choose the type of
-            renewable energy plant you are interested in getting a prediction
-            for.
+            desired location:
+          </Typography>
+          <Typography
+            // variant="ol"
+            component="ol"
+            align="justify"
+            color="secondary"
+            gutterBottom
+          >
+            <li>Login or sign up as a new user</li>
+            <li>Click on a location on the map</li>
+            <li>Choose the type of renewable energy plant</li>
+            <li>Get an energy output prediction</li>
           </Typography>
         </Grid>
         <Grid

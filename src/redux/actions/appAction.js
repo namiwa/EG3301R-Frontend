@@ -3,6 +3,8 @@ export const actionTypes = {
   LOGIN_FAILURE: 'LOGIN_FAILURE',
   LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
   LOGOUT_FAILURE: 'LOGOUT_FAILURE',
+  VIEW_MAP: 'VIEW_MAP',
+  VIEW_DATA: 'VIEW_DATA',
 };
 
 export const loginSuccess = () => {
@@ -26,5 +28,17 @@ export const logoutSuccess = () => {
 export const logoutFailure = () => {
   return {
     type: actionTypes.LOGOUT_FAIILURE,
+  };
+};
+
+export const viewMap = () => {
+  return {
+    type: actionTypes.VIEW_MAP,
+  };
+};
+
+export const viewData = () => {
+  return {
+    type: actionTypes.VIEW_DATA,
   };
 };

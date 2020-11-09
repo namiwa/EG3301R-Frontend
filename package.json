@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.9",
+    "@material-ui/data-grid": "^4.0.0-alpha.8",
     "@material-ui/icons": "^4.9.1",
     "@reach/combobox": "^0.11.2",
     "@react-google-maps/api": "^1.10.1",
@@ -14,6 +15,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.21.0",
     "clsx": "^1.1.1",
+    "devextreme": "^20.2.3",
     "firebase": "^7.21.1",
     "framer-motion": "^2.9.4",
     "react": "^16.13.1",
