@@ -7,7 +7,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { Grid, Paper, Typography, Divider } from '@material-ui/core';
 import { useStore } from 'react-redux';
-import { loginSuccess } from '../../redux/actions/authAction';
+import { loginSuccess } from '../../redux/actions/appAction';
 
 const useStyles = makeStyles((theme) => ({
   root: {

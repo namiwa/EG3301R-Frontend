@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { Grid } from '@material-ui/core';
-import { logoutSuccess, logoutFailure } from '../../redux/actions/authAction';
+import { logoutSuccess, logoutFailure, viewData, viewMap } from '../../redux/actions/appAction';
 import { useStore, connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ function Header(props) {
   const store = useStore();
   const history = useHistory();
   const isLoggedIn = props.isLoggedIn;
-  const isBrowseHistory = props.isBrowseHistory;
+  const isBrowseData = props.isBrowseData;
 
   const handleLogout = () => {
     firebase
@@ -45,8 +45,14 @@ function Header(props) {
       });
   };
 
-  const handleChange = () => {
+  const handleViewData = () => {
+    store.dispatch(viewData())
     history.push('/mydata');
+  };
+
+  const handleViewMap = () => {
+    store.dispatch(viewMap())
+    history.push('/map');
   };
 
   return (
@@ -68,11 +74,16 @@ function Header(props) {
             <Grid item>
               {isLoggedIn && (
                 <ButtonGroup>
-                  {/* {isBrowseHistory && ( */}
-                    <Button onClick={handleChange}>
+                  {!isBrowseData && (
+                    <Button onClick={handleViewData}>
                       <Typography color="secondary">My Data</Typography>
                     </Button>
-                  )
+                  )}
+                  {isBrowseData && (
+                    <Button onClick={handleViewMap}>
+                      <Typography color="secondary">App</Typography>
+                    </Button>
+                  )}
                   <Button onClick={handleLogout}>
                     <Typography color="secondary">Log Out</Typography>
                   </Button>
@@ -89,7 +100,7 @@ function Header(props) {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.isLoggedIn,
-    isBrowseHistory: state.isBrowseHistory,
+    isBrowseData: state.isBrowseData,
   };
 };
 

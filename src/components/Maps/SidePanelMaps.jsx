@@ -94,9 +94,7 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
     var year = new Date().getFullYear(); //Current Year
-    var hours = new Date().getHours(); //Current Hours
-    var min = new Date().getMinutes(); //Current Minutes
-    setCurrentDate(date + '/' + month + '/' + year + ' ' + hours + ':' + min);
+    setCurrentDate(date + '/' + month + '/' + year);
   }, []);
 
   const [turbine, setTurbine] = React.useState('');
@@ -175,7 +173,7 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
         </List>
         <Divider />
         <List>
-          {['Get Prediction', 'Save Results'].map((text, index) => (
+          {['Save Prediction'].map((text, index) => (
             <ListItem button key={text} onClick={handlePredict}>
               <ListItemText primary={text} />
             </ListItem>
