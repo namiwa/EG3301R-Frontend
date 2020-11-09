@@ -81,7 +81,7 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
           setPrediction(res['prediction']);
         }
       });
-      console.log(prediction)
+      console.log(prediction);
     }
 
     console.log(currentRenewable);
