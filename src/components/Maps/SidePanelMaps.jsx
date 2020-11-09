@@ -81,6 +81,7 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
           setPrediction(res['prediction']);
         }
       });
+      console.log(prediction)
     }
 
     console.log(currentRenewable);
@@ -106,7 +107,7 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
   };
 
   const handlePredict = (event) => {
-    var predVal = 90;
+    var predVal = prediction;
     var predIndex = 0;
     var uid = firebase.auth().currentUser.uid;
 
@@ -126,6 +127,7 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
         date: currentDate,
         location: currentLatLng,
         energyType: currentRenewable,
+        turbineType: turbine,
         prediction: predVal,
       });
 

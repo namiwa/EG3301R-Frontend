@@ -82,8 +82,8 @@ export default function History() {
         date: pred.date,
         location: `${pred.location.lat}, ${pred.location.lng}`,
         energyType: pred.energyType,
-        turbineType: pred.energyType,
-        predVal: 90,
+        turbineType: pred.turbineType,
+        predVal: pred.prediction,
       }));
       setRows(mappedData);
     }
