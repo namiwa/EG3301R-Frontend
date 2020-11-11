@@ -3,6 +3,8 @@ import { actionTypes } from '../actions/appAction';
 const initialState = {
   isLoggedIn: false,
   isBrowseData: false,
+  isInterim: false,
+  isMap: false,
 };
 
 const appReducer = (state = initialState, action) => {
@@ -12,12 +14,16 @@ const appReducer = (state = initialState, action) => {
       return {
         isLoggedIn: true,
         isBrowseData: false,
+        isInterim: false,
+        isMap: true,
       };
     case actionTypes.LOGIN_FAILURE:
       console.log('login failed');
       return {
         isLoggedIn: false,
         isBrowseData: false,
+        isInterim: false,
+        isMap: false,
       };
 
     case actionTypes.LOGOUT_SUCCESS:
@@ -25,13 +31,15 @@ const appReducer = (state = initialState, action) => {
       return {
         isLoggedIn: false,
         isBrowseData: false,
+        isInterim: false,
+        isMap: false,
       };
 
     case actionTypes.LOGOUT_FAILURE:
       console.log('logout failed');
       return {
+        ...state,
         isLoggedIn: true,
-        isBrowseData: false,
       };
 
     case actionTypes.VIEW_MAP:
@@ -39,6 +47,8 @@ const appReducer = (state = initialState, action) => {
       return {
         isLoggedIn: true,
         isBrowseData: false,
+        isInterim: false,
+        isMap: true,
       };
 
     case actionTypes.VIEW_DATA:
@@ -46,7 +56,19 @@ const appReducer = (state = initialState, action) => {
       return {
         isLoggedIn: true,
         isBrowseData: true,
+        isInterim: false,
+        isMap: false,
       };
+
+    case actionTypes.VIEW_INTERIM:
+      console.log('viewing interim');
+      return {
+        isLoggedIn: true,
+        isBrowseData: false,
+        isInterim: true,
+        isMap: false,
+      };
+
     default:
       return state;
   }

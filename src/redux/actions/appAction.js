@@ -5,6 +5,7 @@ export const actionTypes = {
   LOGOUT_FAILURE: 'LOGOUT_FAILURE',
   VIEW_MAP: 'VIEW_MAP',
   VIEW_DATA: 'VIEW_DATA',
+  VIEW_INTERIM: 'VIEW_INTERIM',
 };
 
 export const loginSuccess = () => {
@@ -40,5 +41,11 @@ export const viewMap = () => {
 export const viewData = () => {
   return {
     type: actionTypes.VIEW_DATA,
+  };
+};
+
+export const viewInterim = () => {
+  return {
+    type: actionTypes.VIEW_INTERIM,
   };
 };
