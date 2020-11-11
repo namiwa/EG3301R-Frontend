@@ -7,6 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { LatLngContext } from './LatLngProvider';
 import Maps from './Maps';
 import firebase from 'firebase/app';
@@ -64,22 +65,26 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
   const [currentRenewable, setRenewable] = React.useState('');
   const { currentLatLng } = React.useContext(LatLngContext);
   const [prediction, setPrediction] = React.useState(0);
+  const [isLoading, setLoading] = React.useState(false);
+
   const onRenewableClick = (renewableText) => {
+    setLoading(true);
     setRenewable(renewableText);
+    console.log(isLoading);
     if (renewableText in types_url_map) {
-      const lat = currentLatLng.lat;
-      const lng = currentLatLng.lng;
+      const lat = currentLatLng.lat.toFixed(3);
+      const lng = currentLatLng.lng.toFixed(3);
       let url = '';
       if (renewableText === 'Geothermal') {
         url = types_url_map[renewableText](lat, lng, turbine);
       } else {
         url = types_url_map[renewableText](lat, lng);
       }
-      console.log(url);
       fetcher(url).then((res) => {
         if ('prediction' in res) {
           setPrediction(res['prediction']);
         }
+        setLoading(false);
       });
       console.log(prediction);
     }
@@ -180,12 +185,23 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
           ))}
         </List>
         <Typography variant="h1"> </Typography>
-        <Typography>
-          Potential Power in MWs:{' '}
-          {prediction || prediction === 0
-            ? prediction.toFixed(2)
-            : 'Something went wrong'}{' '}
-        </Typography>
+        <Typography>Potential Power in MWs: </Typography>
+        {isLoading ? (
+          <CircularProgress
+            style={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          />
+        ) : (
+          <Typography>
+            {prediction || prediction === 0
+              ? prediction.toFixed(2)
+              : 'Something went wrong'}
+          </Typography>
+        )}
       </Drawer>
       <div className={classes.toolbar} />
       <Maps />
