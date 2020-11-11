@@ -22,5 +22,10 @@ export const geothermal_prediction_url = (lat, lng, turbine) => {
   );
 };
 
+/**
+ * Returns data object after request is made.
+ * Currently using insecure method of self-sign cert for demo purposes.
+ * @param {string} url to backend server.
+ */
 export const fetcher = (url) =>
   axios.post(url, { httpsAgent: agent }).then((r) => r.data);

@@ -14,6 +14,7 @@ import {
   logoutFailure,
   viewData,
   viewMap,
+  viewInterim,
 } from '../../redux/actions/appAction';
 import { useStore, connect } from 'react-redux';
 
@@ -31,8 +32,7 @@ function Header(props) {
 
   const store = useStore();
   const history = useHistory();
-  const isLoggedIn = props.isLoggedIn;
-  const isBrowseData = props.isBrowseData;
+  const { isLoggedIn, isBrowseData, isMap, isInterim } = props;
 
   const handleLogout = () => {
     firebase
@@ -60,6 +60,13 @@ function Header(props) {
     history.push('/map');
   };
 
+  const handleViewInterim = () => {
+    store.dispatch(viewInterim());
+    history.push('/interim');
+  };
+
+  console.log(store.getState());
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed">
@@ -79,14 +86,19 @@ function Header(props) {
             <Grid item>
               {isLoggedIn && (
                 <ButtonGroup>
+                  {!isMap && (
+                    <Button onClick={handleViewMap}>
+                      <Typography color="secondary">App</Typography>
+                    </Button>
+                  )}
                   {!isBrowseData && (
                     <Button onClick={handleViewData}>
                       <Typography color="secondary">My Data</Typography>
                     </Button>
                   )}
-                  {isBrowseData && (
-                    <Button onClick={handleViewMap}>
-                      <Typography color="secondary">App</Typography>
+                  {!isInterim && (
+                    <Button onClick={handleViewInterim}>
+                      <Typography color="secondary">interim</Typography>
                     </Button>
                   )}
                   <Button onClick={handleLogout}>
@@ -106,6 +118,8 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.isLoggedIn,
     isBrowseData: state.isBrowseData,
+    isInterim: state.isInterim,
+    isMap: state.isMap,
   };
 };
 

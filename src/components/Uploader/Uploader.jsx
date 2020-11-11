@@ -11,16 +11,16 @@ import Model from '../Models/Model';
 import { Paper } from '@material-ui/core';
 
 const CATEGORIES = [
-  'AnnualCrop',
+  'Annual Crop',
   'Forest',
-  'HerbaceousVegetation',
+  'Herbaceous Vegetation',
   'Highway',
   'Industrial',
   'Pasture',
-  'PermanentCrop',
+  'Permanent Crop',
   'Residential',
   'River',
-  'SeaLake',
+  'Sea Lake',
 ];
 
 // Add other routes for potential predictive features, about the project, anything interesting
@@ -124,10 +124,13 @@ export const Uploader = (props) => {
       <div>
         <Typography>
           The possible image labels are{' '}
-          {CATEGORIES.map((val) => {
-            return val + ' ';
+          {CATEGORIES.map((val, ind) => {
+            if (ind < CATEGORIES.length - 1) {
+              return val + ', ';
+            } else {
+              return ' & ' + val + '.';
+            }
           })}
-          .
         </Typography>
         <Typography>
           The model was trained on the{' '}
