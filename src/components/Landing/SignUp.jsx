@@ -66,7 +66,7 @@ export default function Login() {
             <Typography variant="h4" gutterBottom>
               Register
             </Typography>
-            <Typography variant="p" gutterBottom>
+            <Typography variant="body1" gutterBottom>
               Create an account with us
             </Typography>
             <Grid item className={classes.item}>
