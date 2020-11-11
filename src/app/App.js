@@ -9,7 +9,6 @@ import 'typeface-roboto';
 
 import Header from '../view/Header/Header';
 import Uploader from '../components/Uploader/Uploader';
-import FutureWork from '../components/Future/FutureWork';
 
 import Maps from '../components/Maps';
 import Login from '../components/Landing/Login';
@@ -50,13 +49,18 @@ function MainApp() {
       <div className="App">
         <Header component={firebase} />
         <Switch>
-          <Route exact path={'/futurework'} component={FutureWork} />
-          <Route path={'/app'} component={Uploader} />
           <Route
             exact
             path={'/mydata'}
             render={() =>
               store.getState().isLoggedIn ? <History /> : <Redirect to="/" />
+            }
+          />
+          <Route
+            exact
+            path={'/interim'}
+            render={() =>
+              store.getState().isLoggedIn ? <Uploader /> : <Redirect to="/" />
             }
           />
           <Route path={'/signup'} component={SignUp} />
