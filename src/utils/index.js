@@ -18,7 +18,7 @@ export const solar_prediction_url = (lat, lng) => {
 export const geothermal_prediction_url = (lat, lng, turbine) => {
   return (
     url +
-    `predictions/solar?latitude=${lat}&longtitude=${lng}&turbine=${turbine}`
+    `predictions/geothermal?latitude=${lat}&longtitude=${lng}&turbine=${turbine}`
   );
 };
 

@@ -75,14 +75,26 @@ export const SidePanelMaps = React.forwardRef((props, ref) => {
       const lat = currentLatLng.lat.toFixed(3);
       const lng = currentLatLng.lng.toFixed(3);
       let url = '';
+      console.log(renewableText);
       if (renewableText === 'Geothermal') {
         url = types_url_map[renewableText](lat, lng, turbine);
+        console.log(url);
       } else {
         url = types_url_map[renewableText](lat, lng);
       }
+      console.log(url);
       fetcher(url).then((res) => {
+        console.log(res);
         if ('prediction' in res) {
-          setPrediction(res['prediction']);
+          if (renewableText === 'Solar') {
+            setPrediction(res['prediction'] / 1000000);
+          }
+          if (renewableText === 'Wind') {
+            setPrediction(res['prediction'] / 1000);
+          }
+          if (renewableText === 'Geothermal') {
+            setPrediction(res['prediction']);
+          }
         }
         setLoading(false);
       });
